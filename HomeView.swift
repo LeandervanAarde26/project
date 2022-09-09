@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
   @EnvironmentObject var allCars: Network
+  @EnvironmentObject var garage: favCars
   let columns = [
     GridItem(.adaptive(minimum: 150))
   ]
@@ -9,9 +10,9 @@ struct HomeView: View {
   @State private var shouldAnimate = false
   @State var show = false
   @State private var searchText = ""
+  @State private var showingAlert = false
   @Environment(\.colorScheme) var colorScheme
     var searchResults: [Car] {
-//        let searchModel = String(searchText)
         return searchText.isEmpty ? allCars.cars : allCars.cars.filter{$0.model!.contains(searchText) }
     }
 
@@ -95,13 +96,22 @@ struct HomeView: View {
                     .clipped()
                     .shadow(color: Color.black.opacity(0.24), radius: 10, x: 0, y: 0)
                     .edgesIgnoringSafeArea(.all)
+                    .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                                .onEnded({ value in
+                                    if value.translation.width > 0 {
+                                        showingAlert = true
+                                        garage.myCars.append(car)
+                                    }
+                                })
+                            )
+                            .alert("The Car has been added", isPresented: $showingAlert) {
+                                Button("Okay", role: .cancel) {}
+                            }
+                        }
+                    }
                 }
             }
-          }
         }
-
-      }
-
     }
   
 
@@ -116,5 +126,6 @@ struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
     HomeView()
       .environmentObject(Network())
+      .environmentObject(favCars())
   }
 }

@@ -4,6 +4,8 @@ struct ContentView: View {
     
     @State var isLinkActive = false
     @EnvironmentObject var cars: Network
+    @EnvironmentObject var garage: favCars
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -36,5 +38,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(Network())
+            .environmentObject(favCars())
     }
 }

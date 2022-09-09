@@ -9,12 +9,14 @@ import SwiftUI
 @main 
 struct projectApp: App {
     var cars = Network()
+    var myCars = favCars()
     var body: some Scene {
         WindowGroup {
             NavigationView(){
                 
                 SplashView()
                     .environmentObject(cars)
+                    .environmentObject(myCars)
                     .navigationBarTitle("")
                     .navigationBarHidden(true)
 

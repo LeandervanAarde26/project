@@ -16,9 +16,9 @@ struct CarDetails: View {
         .frame(alignment: Alignment.top)
         
         VStack{
-            Image(systemName: "heart")
+            Image(systemName: "heart.fill")
                 .foregroundColor(Color.red)
-                .frame(width: 130, height: 130, alignment: Alignment.center)
+                .frame(width: 200, height: 20)
             
             Text(car.make)
                 .font(Font.largeTitle.bold())
@@ -39,7 +39,7 @@ struct CarDetails: View {
                 Text(String(car.combined_fuel_consumption != nil ? car.combined_fuel_consumption!: 0) + "Km/L")
                 Text(car.fuel_type ?? "generation")
                 Text(String(car.acceleration != nil ? car.acceleration!: 0) + "s (0km - 100km)")
-                Text(String(car.acceleration != nil ? car.acceleration!: 0) + "s (0km - 100km)")
+//                Text(String(car.acceleration != nil ? car.acceleration!: 0) + "s (0km - 100km)")
             }
         }
     }
